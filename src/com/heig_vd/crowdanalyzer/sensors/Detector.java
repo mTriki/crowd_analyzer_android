@@ -1,51 +1,33 @@
 package com.heig_vd.crowdanalyzer.sensors;
 
+import java.util.EventListener;
 import java.util.LinkedList;
 
 import android.content.Context;
-import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 
-public abstract class Detector implements SensorEventListener {
-	protected SensorManager sensMng;
-	protected LinkedList<DetectorListener> listeners = new LinkedList<DetectorListener>();
-	protected LinkedList<Sensor> sensors = new LinkedList<Sensor>();
+public abstract class Detector implements DetectorConfig {
+	protected Context context;
+	protected LinkedList<EventListener> listeners = new LinkedList<EventListener>();
 	
 	public Detector(Context context) {
-		sensMng = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+		this.context = context;
 	}
 	
-	public void registerListener(DetectorListener listener) {
+	public void registerListener(EventListener listener) {
 		listeners.add(listener);
 		
 		if(listeners.size() == 1)
-			startDetectors();
+			startDetector();
 	}
 	
-	public void unregisterListener(DetectorListener listener) {
+	public void unregisterListener(EventListener listener) {
 		listeners.remove(listener);
 		
 		if(listeners.isEmpty())
-			stopDetectors();
+			stopDetector();
 	}
 	
-	protected void notifyListeners(Object ...data) {
-		for(DetectorListener listener : listeners)
-			listener.process(data);
-	}
+	protected abstract void startDetector();
 	
-	protected void startDetectors() {
-		for(Sensor sensor : sensors)
-			sensMng.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-	}
-	
-	protected void stopDetectors() {
-		for(Sensor sensor : sensors)
-			sensMng.unregisterListener(this, sensor);
-	}
-	
-	@Override
-	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-	}
+	protected abstract void stopDetector();
 }

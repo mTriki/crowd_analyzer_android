@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.heig_vd.crowdanalyzer"
     android:versionCode="1"
     android:versionName="1.0" >
@@ -8,22 +9,37 @@
         android:minSdkVersion="10"
         android:targetSdkVersion="19" />
     
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
     
-     <!-- Launching -->
-    <uses-permission android:name="android.permission.BATTERY_STATS" />
-   
-    <!-- All probes -->
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+	<permission
+      android:name="com.heig_vd.crowdanalyzer.permission.MAPS_RECEIVE"
+      android:protectionLevel="signature"/>
 
-    <!-- Storage -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  	<uses-permission 
+  	    android:name="com.heig_vd.crowdanalyzer.permission.MAPS_RECEIVE" />
+  	<uses-permission 
+  	    android:name="android.permission.ACCESS_NETWORK_STATE" />
+  	<uses-permission 
+  	    android:name="android.permission.INTERNET" />
+  	<uses-permission 
+  	    android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  	<uses-permission 
+  	    android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission 
+        android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
         <activity
             android:name="com.heig_vd.crowdanalyzer.MainActivity"
             android:label="@string/app_name" >
@@ -34,18 +50,70 @@
             </intent-filter>
         </activity>
         
-        <service android:name="edu.mit.media.funf.FunfManager">
-		    <meta-data android:name="default" android:value="@string/default_pipeline"/>
-		</service>
-		<receiver android:name="edu.mit.media.funf.Launcher" android:enabled="true">
-		    <intent-filter>
-		        <action android:name="android.intent.action.BATTERY_CHANGED" />
-		        <action android:name="android.intent.action.BOOT_COMPLETED" />
-		        <action android:name="android.intent.action.DOCK_EVENT" />
-		        <action android:name="android.intent.action.ACTION_SCREEN_ON" />
-		        <action android:name="android.intent.action.USER_PRESENT" />
-		    </intent-filter>
-		</receiver>
+        <meta-data
+		    android:name="com.google.android.maps.v2.API_KEY"
+		    android:value="AIzaSyDVwEwnNPGsEP2qxjjvCokkkECIQTqXm-o" />
+        <meta-data
+		    android:name="com.google.android.gms.version"
+		    android:value="@integer/google_play_services_version" />
     </application>
-
 </manifest>
+
+<!-- 
+WINDOWS:
+Nom d'alias : androiddebugkey
+Date de crÚation : 3 mars 2014
+Type d'entrÚeá: PrivateKeyEntry
+Longueur de cha¯ne du certificat : 1
+Certificat[1]:
+PropriÚtaire : CN=Android Debug, O=Android, C=US
+Emetteur : CN=Android Debug, O=Android, C=US
+NumÚro de sÚrie : 6c422f0
+Valide du : Mon Mar 03 13:05:48 CET 2014 au : Wed Feb 24 13:05:48 CET 2044
+Empreintes du certificat :
+         MD5:  AB:3A:B6:EF:59:52:1D:F2:C2:8F:E4:F7:15:1E:3F:E8
+         SHA1 : 6D:92:56:2E:C6:59:FD:7C:EF:C1:B1:7F:02:16:00:59:49:53:C1:64
+         SHA256 : B3:40:4D:E7:13:44:3D:A1:C0:A5:F4:6C:9C:03:D9:32:1B:BF:A3:1D:4A
+:D7:39:B1:6F:FF:40:21:36:E4:83:91
+         Nom de l'algorithme de signature : SHA256withRSA
+         Version : 3
+
+Extensionsá:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: E5 2B C2 6D F8 BC 3B 20   6D 38 4C 3A ED 21 AF 71  .+.m..; m8L:.!.q
+0010: D7 88 89 6A                                        ...j
+]
+]
+ApiKey: AIzaSyAVxrBbLCaHLS1D35enJwuC92MwLixl0es
+
+LINUX:
+Nom d'alias : androiddebugkey
+Date de création : 18 févr. 2014
+Type d'entrée : PrivateKeyEntry
+Longueur de chaîne du certificat : 1
+Certificat[1]:
+Propriétaire : CN=Android Debug, O=Android, C=US
+Emetteur : CN=Android Debug, O=Android, C=US
+Numéro de série : 37326789
+Valide du : Tue Feb 18 23:17:02 CET 2014 au : Thu Feb 11 23:17:02 CET 2044
+Empreintes du certificat :
+	 MD5:  4B:9C:83:31:9B:97:7C:4A:EB:01:4D:8A:14:04:9F:C1
+	 SHA1 : A5:CF:19:3B:2A:A5:8D:4C:1E:60:6F:CB:38:B4:13:24:44:F6:FB:B6
+	 SHA256 : 60:D7:A7:7B:0F:8F:28:97:E9:2F:EF:1A:94:65:5B:15:2B:10:AE:9C:34:04:5D:D9:37:F0:16:F1:07:A6:5B:09
+	 Nom de l'algorithme de signature : SHA256withRSA
+	 Version : 3
+
+Extensions : 
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 3D C9 C9 30 05 DD C2 CD   0E 2B 4A 95 70 C8 38 8B  =..0.....+J.p.8.
+0010: 88 C2 C2 11                                        ....
+]
+]
+ApiKey: AIzaSyDVwEwnNPGsEP2qxjjvCokkkECIQTqXm-o
+ -->
